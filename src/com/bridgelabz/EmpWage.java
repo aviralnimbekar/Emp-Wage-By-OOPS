@@ -4,13 +4,14 @@ package com.bridgelabz;
  * Purpose - Employee Wage Computation program
  *
  * @author - Aviral N
- * @version - 1.5
+ * @version - 1.6
  * date     - 14-08-2021
  */
 public class EmpWage {
 
     public static final int IS_PRESENT = 1, IS_PART_TIME_PRESENT = 2;
-    public static final int FULL_TIME_WORKING_HR = 8, PART_TIME_WORKING_HR = 4;
+    public static final int FULL_TIME_WORKING_HR = 8, PART_TIME_WORKING_HR = 4,
+            WORKING_DAY_FOR_MONTH = 20;
 
     /**
      * Purpose - checks whether an EMP is present or absent
@@ -33,13 +34,18 @@ public class EmpWage {
 
     /**
      * Purpose - Calculates daily wage if emp is  present
+     *
+     * @param workingHrPerDay working of a EMP in a day (8, 4, 0)
+     * @return dailyWage (160, 80 , 0)
      */
-    public static void dailyWage(int workingHrPerDay) {
+    public static int dailyWage(int workingHrPerDay) {
 
         int WAGE_PER_HRS = 20;
 
         int dailyWage = WAGE_PER_HRS * workingHrPerDay;
         System.out.println("Daily wage: " + dailyWage);
+
+        return dailyWage;
     }
 
     /**
@@ -69,6 +75,11 @@ public class EmpWage {
         return workingHrPerDay;
     }
 
+    /**
+     * Purpose - checks attendance and calculate working per hr using case switch method
+     *
+     * @return workingHrPerDay
+     */
     public static int switchCase() {
 
         int workingHrPerDay;
@@ -94,11 +105,28 @@ public class EmpWage {
     }
 
     /**
+     * Purpose - Calculate wage for a month
+     *
+     * @param workingHrPerDay working hr of EMP on a day
+     * @return monthly wage
+     */
+    public static int monthlyWage() {
+
+        int monthlyWage = 0;
+
+        for (int i = 1; i <= WORKING_DAY_FOR_MONTH; i++) {
+            int dailyWage = dailyWage(partTimeFullTime());
+            monthlyWage += dailyWage;
+        }
+        return monthlyWage;
+    }
+
+    /**
      * Purpose - Execution of all methods
      */
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Wage Computation Program");
 
-        dailyWage(switchCase());
+        System.out.println("Monthly wage: " + monthlyWage());
     }
 }
